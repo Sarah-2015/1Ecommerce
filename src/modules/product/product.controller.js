@@ -5,7 +5,6 @@ import { ResError } from "../../utils/ResError.js"
 import productModel from "../../../DB/model/product.model.js"
 import cloudinary from "../../utils/cloudinary.js"
 import { nanoid } from "nanoid"
-import { paginate } from "../../utils/paginate.js"
 import userModel from "../../../DB/model/user.model.js"
 import ApiFeatures from "../../utils/ApiFeatures.js"
 
