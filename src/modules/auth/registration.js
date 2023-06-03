@@ -20,7 +20,7 @@ export const signup = async (req, res, next) => {
         }
         const hashPassword = hash({ plaintext: password })
         const token =generateToken({payload:{ email }})
-       const html= `<a target="_blank" href="http://localhost:5000/auth/verifyMail/${token}">verify your mail</a>`
+       const html= `<a target="_blank" href="${req.protocol}://${req.headers.host}/auth/verifyMail/${token}">verify your mail</a>`
         sendMail({email,html,subject: "Verify Email ✔"})
         const user = await userModel.create({ userName, email, password: hashPassword,mobileNumber,role })
         return res.status(201).json({ message: "Done", user })
@@ -81,7 +81,7 @@ return res.status(200).json({ message: "Done", token })
             return next(new ResError("the email provided was not found",400))
           }
           const token = generateToken({payload:{email}})
-          const html=`<a target="_blank" href="http://localhost:5000/auth/resetPassword/${token}">reset password</a>`
+          const html=`<a target="_blank" href="${req.protocol}://${req.headers.host}/auth/resetPassword/${token}">reset password</a>`
           sendMail({email:user.email,subject: "RESET YOUR PASSWORD",html})
         
         return res.status(200).json({message: `a link to reset your password has been sent to: ${user.email}`,});
