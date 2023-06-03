@@ -58,7 +58,7 @@ export const getAllCategories =async(req,res,next)=>{
        path: "subcategory"
     }])
    
-    res.json({message:"success",result})
+    res.json({message:"Done",result})
 
 }
 

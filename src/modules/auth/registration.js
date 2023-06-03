@@ -1,6 +1,5 @@
 
 import userModel from "../../../DB/model/user.model.js";
-
 import sendMail from '../../utils/email.js'
 import { generateToken, verifyToken } from "../../utils/GenerateAndVerifyToken.js";
 import { compare, hash } from "../../utils/HashAndCompare.js";
@@ -37,7 +36,7 @@ const user = await userModel.findOne({email:email.toLowerCase()})
 if (!user) {
     return next(new ResError("In-valid Email",400)) 
 }
-if(!user.confirmedEmail==true)
+if(!user.isVerified==true)
 {
     return next(new ResError("verify your email first",400)) 
 }
@@ -62,7 +61,7 @@ return res.status(200).json({ message: "Done", token })
 
     const {token}= req.params
     const decoded = verifyToken(token)
-    const user= await userModel.findOneAndUpdate({email:decoded.email},{confirmedEmail:true},{new:true})
+    const user= await userModel.findOneAndUpdate({email:decoded.email},{isVerified:true},{new:true})
    
       return user?  res.status(200).json({message:"Done"})
       :next(new ResError("In-valid mail",400))
@@ -102,7 +101,7 @@ export const saveResetPassword = async (req, res,next) => {
     user.password=hashPassword
     await  user.save()
     
-        return res.status(200).json({message:"Done",user})
+    return res.status(200).json({message:"Done",user})
    
     }
  
