@@ -1,12 +1,11 @@
-import {authRouter} from 'express'
+import {Router} from 'express'
 import { validation } from '../../middleware/validation.js';
 
 import { forgetPasswordSchema, loginSchema, resetPasswordSchema, signupSchema } from './auth.validation.js';
-import * as authController from  './controller/auth.js'
+import * as authController from  './registration.js'
 import { asyncHandler } from '../../middleware/asyncHandler.js';
-const authRouter = authRouter();
 
-
+const authRouter = Router();
 
 authRouter.post('/signup' ,validation(signupSchema),asyncHandler(authController.signup))
 authRouter.post('/login' ,validation(loginSchema),asyncHandler(authController.login))

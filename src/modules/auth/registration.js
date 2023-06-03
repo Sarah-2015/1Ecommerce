@@ -1,12 +1,10 @@
-import userModel from "../../../../DB/model/user.model.js";
-import { ResError } from "../../../utils/ResError.js";
-import sendMail from "../../../utils/email.js";
+
+import userModel from "../../../DB/model/user.model.js";
+
+import sendMail from '../../utils/email.js'
 import { generateToken, verifyToken } from "../../utils/GenerateAndVerifyToken.js";
 import { compare, hash } from "../../utils/HashAndCompare.js";
-
-
-
-
+import { ResError } from "../../utils/ResError.js";
 
 
 export const signup = async (req, res, next) => {
