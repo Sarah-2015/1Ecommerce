@@ -10,6 +10,7 @@ import reviewRouter from "../reviews/reviews.router.js";
 
 const productRouter = Router()
 
+productRouter.get('/',asyncHandler(productController.getAllProducts))
 
 productRouter.post('productId/review',reviewRouter)
 

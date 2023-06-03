@@ -1,9 +1,8 @@
 import userModel from "../../../../DB/model/user.model.js";
-import { compare, hash } from "../../../utils/Hash&compare.js";
-
-import { generateToken, verifyToken } from "../../../utils/generateAndVerifyToken.js";
 import { ResError } from "../../../utils/ResError.js";
 import sendMail from "../../../utils/email.js";
+import { generateToken, verifyToken } from "../../utils/GenerateAndVerifyToken.js";
+import { compare, hash } from "../../utils/HashAndCompare.js";
 
 
 

@@ -4,9 +4,10 @@ import subCategoryRouter from '../subcategory/subcategory.router.js'
 import { fileUpload, fileValidation } from "../../utils/multer.js";
 import auth from '../../middleware/auth.js'
 import { endPoints } from "./category.endPoint.js";
+import { asyncHandler } from "../../middleware/asyncHandler.js";
 const categoryRouter = Router()
 
-
+categoryRouter.get('/',asyncHandler(categoryController.getAllCategories))
 categoryRouter.use('/:categoryId/subcategory',subCategoryRouter)
 
 categoryRouter.post('/',auth(endPoints.createCategory),

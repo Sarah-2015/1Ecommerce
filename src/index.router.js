@@ -24,8 +24,18 @@ const initApp = (app, express) => {
     //convert Buffer Data
     app.use(express.json({}))
     // HTTP Logger 
-    app.use(morgan('dev'))
+    if(process.env.MOOD='DEV')
+    {
+        app.use(morgan('dev'))
+    }
+    else{
+        app.use(morgan('combined'))
+    }
+    
     //Setup API Routing 
+    app.use('/',(req,res,next)=>{
+      return  res.status(200).json({message:'welcome to Ecommerce'})
+    })
     app.use(`/auth`, authRouter)
     app.use(`/user`, userRouter)
     app.use(`/product`, productRouter)

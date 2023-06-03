@@ -1,7 +1,21 @@
-import { Router } from "express";
-const router = Router()
+import {authRouter} from 'express'
+import { validation } from '../../middleware/validation.js';
+
+import { forgetPasswordSchema, loginSchema, resetPasswordSchema, signupSchema } from './auth.validation.js';
+import * as authController from  './controller/auth.js'
+import { asyncHandler } from '../../middleware/asyncHandler.js';
+const authRouter = authRouter();
 
 
 
+authRouter.post('/signup' ,validation(signupSchema),asyncHandler(authController.signup))
+authRouter.post('/login' ,validation(loginSchema),asyncHandler(authController.login))
 
-export default router
+//forget password
+authRouter.post('/forgetPassword',validation(forgetPasswordSchema),asyncHandler(authController.forgetPassword) )
+authRouter.post("/resetPassword/:token",  asyncHandler(authController.saveResetPassword));
+authRouter.get('/verifyMail/:token' ,asyncHandler(authController.verifyMail))
+
+
+
+export default  authRouter
