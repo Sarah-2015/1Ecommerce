@@ -10,9 +10,10 @@ const categoryRouter = Router()
 categoryRouter.get('/',asyncHandler(categoryController.getAllCategories))
 categoryRouter.use('/:categoryId/subcategory',subCategoryRouter)
 
-categoryRouter.post('/',auth(endPoints.createCategory),
-fileUpload(fileValidation.image).single('image'),
-categoryController.createCategory)
+categoryRouter.post('/',fileUpload(fileValidation.image).single('image'),
+auth(endPoints.createCategory),
+
+asyncHandler(categoryController.createCategory))
 
 categoryRouter.put('/:id',auth(endPoints.updateCategory),
 fileUpload(fileValidation.image).single('image'),

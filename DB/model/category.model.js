@@ -1,4 +1,3 @@
-
 import { Schema, Types, model } from "mongoose";
 
 const categorySchema = new Schema({
@@ -14,7 +13,7 @@ const categorySchema = new Schema({
         required:true
 
     },
-    image:String,
+    image:{type:Object,required:true},
     createdBy:{
         type:Types.ObjectId,
         ref:"user",
