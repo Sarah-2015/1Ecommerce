@@ -7,7 +7,7 @@ import cloudinary from "../../utils/cloudinary.js"
 export const createCategory =async(req,res,next)=>{
 
     const {name}= req.body
-    const{secure_url,public_id}=await cloudinary.uploader.upload(req.file.path,{folder:`${process.env.APP_NAME}/Category/`})
+    const{public_id,secure_url}=await cloudinary.uploader.upload(req.file.path,{folder:`${process.env.APP_NAME}/Category/`})
     const category= await categoryModel.create({
         name,
         slug:slugify(name),
@@ -20,7 +20,7 @@ export const createCategory =async(req,res,next)=>{
     }
  
 
-    res.json({message:"success",category})
+    res.json({message:"Done",category})
 
 }
 
