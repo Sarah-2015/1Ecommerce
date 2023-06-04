@@ -36,7 +36,7 @@ const user = await userModel.findOne({email:email.toLowerCase()})
 if (!user) {
     return next(new ResError("In-valid Email",400)) 
 }
-if(!user.isVerified==true)
+if(!user.isVerified)
 {
     return next(new ResError("verify your email first",400)) 
 }
