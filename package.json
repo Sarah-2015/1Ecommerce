@@ -28,6 +28,7 @@
     "nanoid": "^4.0.2",
     "nodemailer": "^6.8.0",
     "pdfkit": "^0.13.0",
-    "slugify": "^1.6.6"
+    "slugify": "^1.6.6",
+    "stripe": "^12.8.0"
   }
 }

@@ -12,7 +12,7 @@ export const createCategory =async(req,res,next)=>{
         name,
         slug:slugify(name),
         image:{secure_url,public_id},
-        //createdBy:req.user._id
+        createdBy:req.user._id
     })
     if(!category){
         await cloudinary.uploader.destroy(public_id)
@@ -54,11 +54,11 @@ export const updateCategory =async(req,res,next)=>{
 
 export const getAllCategories =async(req,res,next)=>{
 
-    const result= await categoryModel.find().populate([{
+    const categories= await categoryModel.find().populate([{
        path: "subcategory"
     }])
    
-    res.json({message:"Done",result})
+    res.json({message:"Done",data:categories})
 
 }
 
@@ -72,9 +72,6 @@ export const getCategory =async(req,res,next)=>{
   
 
 }
-
-
-
 export const deleteCategory =async(req,res,next)=>{
 
     const {id}= req.params

@@ -5,6 +5,8 @@ import orderModel from "../../../DB/model/order.model.js"
 import { ResError } from "../../utils/ResError.js"
 import { createInvoice } from "../../utils/pdf.js"
 import sendEmail from "../../utils/email.js"
+import payment from '../../utils/payment.js'
+import Stripe from "stripe"
 
  export const createOrder=async (req,res,next)=>{
     const {couponCode,address,phone,note,paymentType}=req.body
@@ -103,9 +105,45 @@ const invoice = {
     }
  ]})
 
+if(order.paymentType=='card'){
+const stripe = new Stripe(process.env.STRIPE_KEY)
+if(req.body.coupon){
+  const coupon= stripe.coupons.create({percent_off:req.body.coupon.amount,duration:'once'})
+  req.body.couponId=coupon.id
 
+}
+const session= await payment({
+    stripe,
+    payment_method_types:['card'],
+    mode:'payment',
+    customer_email:req.user.email,
+    metadata:{
+      orderId:order._id.toString()
+    },
+    cancel_url:`${req.protocol}://${req.headers.host}/order/payment/cancel?orderId=${order._id.toString()}`,
+    
+    line_items:order.products.map(product=>{
+      return{
+        price_data:{
+          curruncy:'egp',
+          product_data:{
+            name:product.name,
+          },
+          unit_amount: product.itemPrice * 100,   
+        },
+        quantity: product.quantity,
+        
+      }
 
- return res.status(201).json({message:'done',data:order})
+    }),
+    discounts:req.body.couponId?[{coupon:req.body.couponId}]:[]
+  })
+
+ return res.status(201).json({message:'done',data:order, session, url:session.url})
+}
+else{
+  return res.status(201).json({message:'done',data:order})
+}
 
 }
 

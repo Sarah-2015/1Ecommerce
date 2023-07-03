@@ -41,6 +41,10 @@ const userSchema = new Schema({
     },
 
     profilePic: String,
+    forgetPasswordCode:{
+        type:Number,
+        default:null
+    },
     changePasswordTime:Date,
     wishlist:[{type:Types.ObjectId,ref:'product'}]
 
