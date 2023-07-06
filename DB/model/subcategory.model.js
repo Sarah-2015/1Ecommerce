@@ -14,7 +14,7 @@ const subCategorySchema = new Schema({
         required:true
 
     },
-    image:String,
+    image:{type:Object,required:true},
     categoryId:{
         type:Types.ObjectId,
         ref:'category'

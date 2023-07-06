@@ -25,3 +25,5 @@ async function payment ({
         line_items,
       })
     }
+
+    export default payment
