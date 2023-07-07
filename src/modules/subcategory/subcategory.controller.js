@@ -51,16 +51,15 @@ export const updateSubCategory =async(req,res,next)=>{
 
 export const getAllSubCategories =async(req,res,next)=>{
 
-    if(req.params){
-        filter={category:req.params.categoryId}
-    }
-    
-
-    const subCategories= await subCategoryModel.find().populate([{
-        path:"categoryId"
-    }])
    
-  return  res.status(200).json({message:"success",data:subCategories})
+        const subCategories= await subCategoryModel.find().populate([{
+            path:"categoryId"
+        }])
+       
+      return  res.status(200).json({message:"success",data:subCategories})
+        
+    
+    
 
 }
 
