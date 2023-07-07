@@ -32,7 +32,7 @@ const productSchema = new Schema({
     },
     ratingAvg:{
         type:Number,
-        required:true,
+        
         min:[1,"rating average must be greater than or equal 1"],
         max:[5,"rating average mustn't be greater than 5"],
        
@@ -40,7 +40,6 @@ const productSchema = new Schema({
     },
     description:{
         type:String,
-        required:true,
         minLength:[5,"too short description"],
         maxLength:[300,"too long description"],
         trim:true
