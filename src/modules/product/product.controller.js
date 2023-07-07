@@ -11,16 +11,13 @@ import ApiFeatures from "../../utils/ApiFeatures.js"
 
 
 export const createProduct =async(req,res,next)=>{
-    const {name,category,brand,subcategory,price,discount}= req.body
+    const {name,category,subcategory,price,discount}= req.body
 
     if(! await subCategoryModel.findOne({_id:subcategory,category}))
     {
        return next(new ResError('invalid subcategory id',400))
     }
-    if(! await brandModel.findOne({_id:brand}))
-    {
-       return next(new ResError('invalid brand id',400))
-    }
+
 
     req.body.slug= slugify(name)
     req.body.finalPrice=Number.parseFloat(price- price*((discount || 0) /100)).toFixed(2)
@@ -34,7 +31,7 @@ export const createProduct =async(req,res,next)=>{
         req.body.subImages=[]
         for (const image of req.files.subImages) {
 
-            const {secure_url,public_id}= await cloudinary.uploader.upload(image.path,{folder:`${process.env.APP_NAME}/product/${req.body.customId}/subImages`})
+            const {public_id,secure_url}= await cloudinary.uploader.upload(image.path,{folder:`${process.env.APP_NAME}/product/${req.body.customId}/subImages`})
 
             req.body.subImages.push({secure_url,public_id})
         }
@@ -141,7 +138,7 @@ for (let i = 0; i < products.length; i++) {
 }
    
 
-   return res.status(200).json({message:'success', page,products})
+   return res.status(200).json({message:'success', page,result:products})
 
 }
 

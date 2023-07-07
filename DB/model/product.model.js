@@ -65,11 +65,9 @@ const productSchema = new Schema({
         min:0
     },
 
-    mainImage:{
-        type:String,
-        required:true
-    },
-    subImages:[String],
+    mainImage:{type:Object,required:true},
+   
+    subImages:{type:[Object]},
     review:[{type:Types.ObjectId,ref:'review',}]
 ,
     category:{
@@ -82,11 +80,7 @@ const productSchema = new Schema({
         ref:'subCategory',
         required:true
     },
-    brand:{
-        type:Types.ObjectId,
-        ref:'brand',
-        required:true
-    },
+
     createdBy:{
         type:Types.ObjectId,
         ref:"user",
