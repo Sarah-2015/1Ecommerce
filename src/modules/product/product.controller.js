@@ -138,7 +138,7 @@ for (let i = 0; i < products.length; i++) {
 }
    
 
-   return res.status(200).json({message:'success', page,result:products})
+   return res.status(200).json({message:'success',result:products})
 
 }
 
