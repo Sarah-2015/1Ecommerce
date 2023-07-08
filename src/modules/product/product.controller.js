@@ -114,7 +114,9 @@ export const updateProduct =async(req,res,next)=>{
 export const getProducts =async(req,res,next)=>{
     const {subcategory}=req.params
     
-    const products= await productModel.find({subcategory})
+    const products= await productModel.find({subcategory}).populate([{
+        path: "subcategory"
+     }])
     return res.status(200).json({message:'success',result:products})
 
 }
