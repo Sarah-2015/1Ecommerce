@@ -11,6 +11,7 @@ import reviewRouter from "../reviews/reviews.router.js";
 const productRouter = Router()
 
 productRouter.get('/',asyncHandler(productController.getAllProducts))
+productRouter.get('/:subcategory',asyncHandler(productController.getProducts))
 
 productRouter.post('productId/review',reviewRouter)
 

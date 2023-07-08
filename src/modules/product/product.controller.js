@@ -111,6 +111,15 @@ export const updateProduct =async(req,res,next)=>{
 
 }
 
+export const getProducts =async(req,res,next)=>{
+    const {subcategory}=req.params
+    
+    const products= await productModel.find({subcategory})
+    return res.status(200).json({message:'success',result:products})
+
+}
+
+
 export const getAllProducts =async(req,res,next)=>{
  
 
